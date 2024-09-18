@@ -102,3 +102,15 @@ body{
     animation: shake 0.5s;
     animation-iteration-count: 1;
 }
+/* .mood-action-joyful,.mood-action-rain,.mood-action-calm{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    height: 60vh;
+    width: 60vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+} */

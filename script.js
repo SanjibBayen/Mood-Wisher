@@ -2,6 +2,7 @@ const mainDiv = document.querySelector('.main');
 const askMoodText = document.querySelector('.ask-mood');
 const moodButtons = document.querySelectorAll('.mood-name');
 let moodCycle;
+let moodContainer;
 
 moodButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -9,7 +10,6 @@ moodButtons.forEach(button => {
         handleMoodAction(mood);
     });
 });
-
 
 function handleMoodAction(mood) {
     clearTimeout(moodCycle);
@@ -55,7 +55,6 @@ function showSadMood() {
     document.body.style.backgroundSize = 'cover';
 }
 
-
 function showAngryMood() {
     showMoodAction('calm', 'Take a deep breath... Calm down 😠');
     document.body.style.backgroundColor = '#FF6347'; 
@@ -83,22 +82,28 @@ function showExcitedMood() {
 }
 
 function showMoodAction(effect, message) {
-
-    const existingContainer = document.querySelector('.mood-action');
-    if (existingContainer) {
-        existingContainer.remove();
+    if (moodContainer) {
+        moodContainer.remove();
     }
-
-    const moodContainer = document.createElement('div');
-    moodContainer.className = `mood-action ${effect}`;
+    
+    moodContainer = document.createElement('div');
+    moodContainer.className = `mood-action-${effect}`;
     moodContainer.innerHTML = `<p>${message}</p>`;
     document.body.appendChild(moodContainer);
+    document.addEventListener('click', handleClick, true);
+}
+
+function handleClick(event) {
+    if (moodContainer && !moodContainer.contains(event.target)) {
+        resetMood();
+        document.removeEventListener('click', handleClick, true);
+    }
 }
 
 function resetMood() {
-    const moodContainer = document.querySelector('.mood-action');
     if (moodContainer) {
         moodContainer.remove();
+        moodContainer = null;
     }
 
     mainDiv.style.display = 'flex';
